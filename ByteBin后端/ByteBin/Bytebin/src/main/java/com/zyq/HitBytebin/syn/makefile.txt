@@ -1,0 +1,33 @@
+# 定义变量
+JAVAC = javac
+JAVA = java
+SRC_DIR = src
+BIN_DIR = bin
+LIB_DIR = lib
+LIBS = $(LIB_DIR)/jackson-databind-2.12.3.jar:$(LIB_DIR)/jackson-core-2.12.3.jar:$(LIB_DIR)/jackson-annotations-2.12.3.jar
+
+# 获取所有的Java源文件
+SOURCES := $(shell find $(SRC_DIR) -name "*.java")
+# 生成对应的class文件
+CLASSES := $(patsubst $(SRC_DIR)/%.java, $(BIN_DIR)/%.class, $(SOURCES))
+
+# 默认目标
+default: compile
+
+# 编译所有Java文件
+compile: $(CLASSES)
+
+# 编译规则
+$(BIN_DIR)/%.class: $(SRC_DIR)/%.java
+	@mkdir -p $(BIN_DIR)
+	$(JAVAC) -cp $(LIBS) -d $(BIN_DIR) $<
+
+# 运行JsonFileGenerator
+run: compile
+	$(JAVA) -cp $(BIN_DIR):$(LIBS) JsonFileGenerator
+
+# 清理生成的文件
+clean:
+	rm -rf $(BIN_DIR)/*
+
+.PHONY: default compile run clean

@@ -1,0 +1,9 @@
+SET CLASSPATH=.;C:\Users\Gao42H\Downloads\selabT\lib\antlr-4.13.1-complete.jar;%CLASSPATH%
+SET CLASSPATH=.;C:\Users\Gao42H\Downloads\selabT\lib;%CLASSPATH%
+cd gen/c
+javac *.java
+cd ..
+cd ..
+javac *.java
+
+https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
